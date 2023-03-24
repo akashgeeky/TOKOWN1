@@ -33,12 +33,12 @@ const options = {
   host: "localhost",
   port: 3306,
   user: "root",
-  password: "Hl156$m5zYTAa!vY",
-  database: "node-complete",
+  password: "TOKOWN@2023",
+  database: "tokown",
 };
 const connection = mysql2.createPool(options);
 const sessionStore = new MySQLStore({}, connection);
-const sequelize = new Sequelize("node-complete", "root", "Hl156$m5zYTAa!vY", {
+const sequelize = new Sequelize("tokown", "root", "TOKOWN@2023", {
   host: "localhost",
   port: 3306,
   dialect: "mysql",
@@ -140,22 +140,22 @@ app.get(
     }
   },
   (req, res, next) => {
-    let solana;
-    exec("solana airdrop 1", (err, output) => {
-      // once the command has completed, the callback function is called
-      if (err) {
-        // log and return if we encounter an error
-        console.error("could not execute command: ", err);
-        return;
-      }
-      // log the output received from the command
-      solana = output;
-      solana = solana.slice(solana.indexOf("Signature")).split(" ")[1];
-      console.log("//////////////////////////");
-      console.log(solana);
-      console.log("Output: \n", output);
-    });
-    // let solana = 0;
+    // let solana;
+    // exec("solana airdrop 1", (err, output) => {
+    //   // once the command has completed, the callback function is called
+    //   if (err) {
+    //     // log and return if we encounter an error
+    //     console.error("could not execute command: ", err);
+    //     return;
+    //   }
+    //   // log the output received from the command
+    //   solana = output;
+    //   solana = solana.slice(solana.indexOf("Signature")).split(" ")[1];
+    //   console.log("//////////////////////////");
+    //   console.log(solana);
+    //   console.log("Output: \n", output);
+    // });
+    let solana = 0;
     res.render("uploadFile", { path: "upload-file", solana });
   }
 );
@@ -298,9 +298,12 @@ app.post(
             }
             // log the output received from the command
             solana = output;
-            solana = solana.slice(solana.indexOf("Signature")).split(" ")[1];
-            newres.solana = solana;
-            return res.status(200).json(newres);
+            solana = solana.slice(solana.indexOf("Signature")).split(" ")[1].split("\n")[0];
+            console.log("//////////////////////////");
+            console.log(solana);
+            console.log("Output: \n", output);
+            newres.solana=solana;
+            res.status(200).json(newres);
           });
         })
         .catch((e) => {
