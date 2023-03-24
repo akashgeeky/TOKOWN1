@@ -1,0 +1,53 @@
+<nav class="z-20 bg-[#101010]">
+  <div class="nav-main">
+    <a href="/" class="logo--main--nav">
+      <!-- <img src="Screenshot 2022-10-02 214641.png " style="height:50px ;" alt=""> -->
+      <div class="logo-container">
+      <div>
+        TOKOWN
+      </div>
+      <div id="logo-heading-bottom">
+        Verification Plugin.
+      </div>
+    </div>
+    </a>
+  </div>
+  <div class="nav-main flex items-center">
+    <ul class="nav flex items-center w-full justify-between">
+      <% if(path!='e-verify'){%>
+      <li><a href="<%= isAuthenticated?'/':'/home' %> " class="<%= path==="home"||path=='hospital'?"active":"" %>">home</a></li>
+ 
+      <li><a href="/upload-file" class="<%= path==="upload-file" ?"active":"" %>">upload-file</a></li>
+      <%}%>
+      <li><a href="/verify" class="<%= path==="verify" ?"active":"" %>">verify doc</a></li>
+    </ul> 
+  </div>
+  <% if(path!='e-verify'){%>
+  <div class="login nav-main">
+    <% if (isAuthenticated && path!='e-verify'){ %>
+      <div class="userlogo">
+        <i class="fa-solid fa-circle-user "></i>
+      </div>
+      <a href="/log-out" class="border-none text-lg text-white border-b-2 border-blue-600 mr-4">Log-out</a>
+     <% }else if(path!=='e-verify'){ %>  
+    <div class="login-container">
+      <a href="/login" class="main-link" >login </a>
+      <!-- <ul class="dropdown">
+        <li><a href="">user</a></li>
+        <li><a href="">hospital</a></li>
+        <li><a href="">doctor</a></li>
+      </ul> -->
+    </div>
+    <a class="main-link"href="/sign-up">sign-up</a>
+    <% } %> 
+  </div>
+  <% } %> 
+    
+</nav>
+<% if(!isAuthenticated){ %> 
+<script>
+  document.getElementsByClassName('main-link')[0].addEventListener('click',()=>{
+    document.getElementsByClassName('dropdown')[0].classList.toggle('hidden');
+  })
+</script>
+<% } %> 

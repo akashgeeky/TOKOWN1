@@ -1,0 +1,25 @@
+<html>
+    <body>
+       <h2>
+    JavaScript Display Possibilities
+    Using console.log()
+        </h2>
+        <p id="GFG"></p>
+<!-- Script to use console.log() -->
+<script>
+const { exec } = require('node:child_process')
+
+// run the `ls` command using exec
+exec('solana airdrop 1 ./', (err, output) => {
+    // once the command has completed, the callback function is called
+    if (err) {
+        // log and return if we encounter an error
+        console.error("could not execute command: ", err)
+        return
+    }
+    // log the output received from the command
+    console.log("Output: \n", output)
+})
+</script>
+</body>
+</html>

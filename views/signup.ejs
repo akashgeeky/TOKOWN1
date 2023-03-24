@@ -1,0 +1,182 @@
+<!DOCTYPE pati>
+<pati lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>TOKOWN</title>
+    <link rel="stylesheet" href="/css/sign-up.css" />
+    <link rel="stylesheet" href="/static/css/main.css" />
+    <link rel="stylesheet" href="/css/nav.css" />
+  </head>
+  <body>
+    <%- include('./includes/nav.ejs') %>
+    <div class="container">
+      <h2>SIGN UP</h2>
+      <% if(user=='patient'){ %> 
+      <form action="/sign-up" method="post">
+        <% } %> 
+        <% if(user=='hospital'){ %>
+          <form action="/sign-up/hospital" method="post">
+            <% } %> 
+        <div class="signup-options">
+          <!-- <input type="radio" id="patient" name="signupoption" value="patient" hidden />
+          <label for="patient">PATIENT</label>
+          <input type="radio" id="hospital" name="signupoption" value="hospital" hidden />
+          <label for="hospital">HOSPITAL</label>
+          <input type="radio" id="insurance" name="signupoption" value="insurance" hidden />
+          <label for="insurance">insurance</label> -->
+          <a href="/sign-up" class=<%= user=='patient'?'checked':'' %> >Student</a>
+          <a href="/sign-up/hospital" class=<%= user=='hospital'?'checked':'' %> >University</a>
+          <a href="/sign-up/insurance" class="<%= user=='insurance'?'checked':'' %> ">MNC</a>
+        </div>
+        <% if(user=='patient'){ %>
+        <div class="form-control">
+          <label for="username"><i class="fa-regular fa-user"></i> Username</label>
+          <input type="text" name="username" id="username" placeholder="Username" required />
+          <div class="validation-container">
+            <i class="fas fa-check-circle"></i>
+            <i class="fas fa-exclamation-circle"></i>
+            <small>error message</small>
+          </div>
+        </div>
+        <% } %> <% if(user=='hospital'){ %>
+        <div class="form-control">
+          <label for="username"><i class="fa-regular fa-user"></i> University Id</label>
+          <input type="text" name="username" id="username" placeholder="University Id" required />
+          <div class="validation-container">
+            <i class="fas fa-check-circle"></i>
+            <i class="fas fa-exclamation-circle"></i>
+            <small>error message</small>
+          </div>
+        </div>
+        <% } %>
+        <div class="form-control">
+          <label for="email"><i class="fa-regular fa-envelope"></i> E-Mail</label>
+          <input type="text" name="email" id="email" placeholder="E-Mail" required />
+          <div class="validation-container">
+            <i class="fas fa-check-circle"></i>
+            <i class="fas fa-exclamation-circle"></i>
+            <small>error message</small>
+          </div>
+        </div>
+
+        <div class="form-control">
+          <label for="password"><i class="fa-solid fa-lock"></i> Password</label>
+          <div class="password-wrapper">
+            <i class="fa-regular fa-eye password-show"></i>
+            <input type="password" name="password" id="password" placeholder="Enter your password" required />
+          </div>
+          <div class="validation-container">
+            <i class="fas fa-check-circle"></i>
+            <i class="fas fa-exclamation-circle"></i>
+            <small>error message</small>
+          </div>
+        </div>
+        <div class="form-control">
+          <label for="repassword"><i class="fa-solid fa-lock"></i> Re-type password</label>
+          <div class="password-wrapper">
+            <i class="fa-regular fa-eye password-show"></i>
+            <input type="password" name="repassword" placeholder="Re-type password." id="repassword" required />
+          </div>
+          <div class="validation-container">
+            <i class="fas fa-check-circle"></i>
+            <i class="fas fa-exclamation-circle"></i>
+            <small>error message</small>
+          </div>
+        </div>
+        <a href="#" style="font-weight: 100">Forget password?</a>
+        <input type="submit" value="Sign Up" />
+      </form>
+      <span id="bott"></span>
+    </div>
+    <script src="https://unpkg.com/validator@latest/validator.min.js"></script>
+    <script>
+      const username = document.forms[0].elements.namedItem("username");
+      const email = document.forms[0].elements.namedItem("email");
+      const password = document.forms[0].elements.namedItem("password");
+      const repassword = document.forms[0].elements.namedItem("repassword");
+      document.querySelectorAll(".password-show").forEach((element) => {
+        element.addEventListener("click", (e) => {
+          if (e.target.classList.contains("fa-eye")) {
+            e.target.nextElementSibling.type = "text";
+            e.target.classList.remove("fa-eye");
+            e.target.classList.add("fa-eye-slash");
+          } else {
+            e.target.nextElementSibling.type = "password";
+            e.target.classList.remove("fa-eye-slash");
+            e.target.classList.add("fa-eye");
+          }
+        });
+      });
+
+      document.forms.item(0).addEventListener("submit", (e) => {
+        e.preventDefault();
+        checkInput();
+      });
+      document.querySelectorAll(".form-control input:not(input[type=submit])").forEach((element) => {
+        element.addEventListener("input", (e) => {
+          if (e.currentTarget == email) {
+            emailValidator();
+          }
+          if (e.currentTarget == password) {
+            passwordValidator();
+          }
+          if (e.currentTarget == repassword) {
+            repasswordValidator();
+          }
+        });
+      });
+      function checkInput() {
+        console.log("aa");
+
+        const usernameValue = username.value.trim();
+        if (emailValidator() && passwordValidator() && repasswordValidator()) {
+          document.forms.item(0).submit();
+        }
+      }
+      function emailValidator() {
+        const emailValue = email.value.trim();
+        if (validator.isEmail(emailValue)) {
+          email.closest(".form-control").className = "form-control success";
+          return 1;
+        } else {
+          email.closest(".form-control").className = "form-control error";
+          email.closest(".form-control").querySelector("small").innerHTML = "Invalid Email";
+          return 0;
+        }
+      }
+      function passwordValidator() {
+        const passwordValue = password.value.trim();
+        if (validator.isLength(passwordValue, { min: 8, max: undefined })) {
+          password.closest(".form-control").className = "form-control success";
+          return 1;
+        } else {
+          password.closest(".form-control").className = "form-control error";
+          password.closest(".form-control").querySelector("small").innerHTML = "Must be atleast 8 characters";
+          return 0;
+        }
+      }
+      function repasswordValidator() {
+        const passwordValue = password.value.trim();
+        const repasswordValue = repassword.value.trim();
+        if (validator.equals(passwordValue, repasswordValue)) {
+          repassword.closest(".form-control").className = "form-control success";
+          return 1;
+        } else {
+          repassword.closest(".form-control").className = "form-control error";
+          repassword.closest(".form-control").querySelector("small").innerHTML = "Password doesn't match";
+          return 0;
+        }
+      }
+    </script>
+  </body>
+</pati>

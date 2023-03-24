@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>TOKOWN</title>
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/static/css/main.css" />
+    <link rel="stylesheet" href="/css/nav.css" />
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/particlesjs/2.2.2/particles.min.js"></script> -->
+    <!-- <script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script> -->
+    <script src="particles.js"></script>
+  </head>
+  <!-- bg-[url('/compute-ea4c57a4.png')] -->
+  <!-- <body class="bg-[#101010]"> -->
+  <body class="bg-transparent backdrop-blur-sm">
+    <%- include('./includes/nav.ejs') %> <% if(isAuthenticated){ %>
+    <div class="loggedin-container bg-gray-100">
+      <ul class="file-container">
+        <% files.forEach((p,pos)=>{ %>
+        <li
+          class="file-item"
+          data-filename="<%= p.name %> "
+          data-filehash="<%= p.hash %> "
+          data-createdat="<%= p.createdAt %> "
+          data-filesize="<%= p.size %> "
+        >
+          <div class="file-logo"><i class="fa-regular fa-file"></i></div>
+          <div class="file-name"><%=p.name %></div>
+          <div class="file-date"><%= p.createdAt %></div>
+          <div class="file-options"><i class="fa-solid fa-ellipsis-vertical"></i></div>
+        </li>
+        <% }) %>
+      </ul>
+      <div class="side-file-preview bg-white">
+        <div class="heading-side"><i class="fa-regular fa-file-lines"></i> File Preview</div>
+        <div class="file-preview">
+          <div class="file-preview--file-"></div>
+          <div class="file-preview--file-name">alangalgn.pdf</div>
+          <div class="file-preview--file-info">2.5GB, lagnlagknalknaln</div>
+          <h3>File Hash:</h3>
+          <div class="file-preview--file-hash" style="font-size: 11px">2.5GB, lagnlagknalknaln</div>
+        </div>
+        <div class="file-description"></div>
+        <!-- <div></div> -->
+      </div>
+    </div>
+    <% }else{ %>
+    <div class="top-container mx-auto bg-black z-10 backdrop-blur-sm">
+      <div id="particles-js" class="-z-10 particles-js background absolute top-0 left-0 w-full h-full"></div>
+      <div class="main-container w-full flex flex-row justify-end z-10">
+        <h2 class="text-white font-semibold">
+          <span class="bg-clip-text text-white bg-white"> TOKOWN </span><br />Issue, Retrieve and Verify.
+        </h2>
+      </div>
+      <div class="contain shadow-lg rounded-xl bg-white backdrop-blur-md">
+        <h1 class="font-semibold">Login</h1>
+        <form action="/login" method="post">
+          <div class="userbox">
+            <label for="username" class="font-medium text-gray-600">Username</label>
+            <input class="border-1 border-gray-500" type="text" name="username" id="username" required />
+          </div>
+          <div class="userbox">
+            <label for="password" class="font-semibold text-gray-600">Password</label>
+            <div class="password-wrapper">
+              <i class="fa-regular fa-eye password-show"></i>
+              <input class="border-1 border-gray-500" type="password" name="password" id="password" required />
+            </div>
+          </div>
+          <a href="#" style="font-weight: 100">Forget password?</a>
+          <% if(errormessage){ %>
+          <div class="error-message"><%= errormessage %></div>
+          <% } %>
+          <input
+            type="submit"
+            class="hover:shadow-lg hover:shadow-violet-400 bg-blue-600 text-white font-semibold"
+            value="Log In"
+          />
+        </form>
+        <span id="bott"></span>
+        <div class="horizontal-break">
+          <span>OR</span>
+        </div>
+        <div class="container-login-signup">
+          <a href="/sign-up" style="outline: none; text-decoration: none"> New to TOKOWN? Sign Up </a>
+        </div>
+      </div>
+    </div>
+
+    <% } %> <% if(!isAuthenticated){ %>
+    <script>
+      const eye = document.getElementsByClassName("password-show")[0];
+      eye.addEventListener("click", (e) => {
+        if (eye.classList.contains("fa-eye")) {
+          eye.nextElementSibling.type = "text";
+          eye.classList.remove("fa-eye");
+          eye.classList.add("fa-eye-slash");
+        } else {
+          eye.nextElementSibling.type = "password";
+          eye.classList.remove("fa-eye-slash");
+          eye.classList.add("fa-eye");
+        }
+      });
+    </script>
+    <% }else{ %>
+    <script>
+      let arr;
+      arr;
+      const filePreviewname = document.getElementsByClassName("file-preview--file-name")[0];
+      const filePreviewInfo = document.getElementsByClassName("file-preview--file-info")[0];
+      const filepreviewhash = document.getElementsByClassName("file-preview--file-hash")[0];
+      document.querySelectorAll(".file-item").forEach((elem, key) => {
+        elem.addEventListener("click", () => {
+          console.log(elem);
+          if (!elem.classList.contains("selected")) {
+            removeclasslist();
+            elem.classList.add("selected");
+            updatepreview();
+          }
+        });
+      });
+      function removeclasslist() {
+        document.querySelectorAll(".file-item").forEach((elem, key) => {
+          if (elem.classList.contains("selected")) {
+            elem.classList.remove("selected");
+          }
+        });
+      }
+      function updatepreview() {
+        const selectedfileitem = document.getElementsByClassName("selected")[0];
+        let fileTotal = parseInt(selectedfileitem.dataset.filesize) / 1024;
+        let filesize;
+        fileTotal < 1024
+          ? (filesize = fileTotal.toFixed(2) + " KB")
+          : (filesize = (fileTotal / (1024 * 1024)).toFixed(2) + " MB");
+        filePreviewname.innerHTML = selectedfileitem.dataset.filename;
+        filePreviewInfo.innerHTML = filesize + "  " + selectedfileitem.dataset.createdat;
+        filepreviewhash.innerHTML = selectedfileitem.dataset.filehash;
+      }
+    </script>
+    <% } %>
+    <script>
+      particlesJS("particles-js", {
+        particles: {
+          number: { value: 100, density: { enable: true, value_area: 1800 } },
+          color: { value: "#8a70f5" },
+          shape: {
+            type: "circle",
+            stroke: { width: 0, color: "#4361ee" },
+            polygon: { nb_sides: 4 },
+            image: { src: "img/github.svg", width: 100, height: 100 },
+          },
+          opacity: { value: 1, random: false, anim: { enable: false, speed: 1, opacity_min: 0.8, sync: false } },
+          size: { value: 3, random: true, anim: { enable: false, speed: 40, size_min: 0.1, sync: false } },
+          line_linked: { enable: true, distance: 150, color: "#8a70f5", opacity: 4, width: 3 },
+          move: {
+            enable: true,
+            speed: 4,
+            direction: "none",
+            random: false,
+            straight: false,
+            out_mode: "out",
+            bounce: false,
+            attract: { enable: false, rotateX: 600, rotateY: 1200 },
+          },
+        },
+        interactivity: {
+          detect_on: "canvas",
+          events: {
+            onhover: { enable: true, mode: "repulse" },
+            onclick: { enable: false, mode: "push" },
+            resize: true,
+          },
+          modes: {
+            grab: { distance: 400, line_linked: { opacity: 1 } },
+            bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
+            repulse: { distance: 100, duration: 0.4 },
+            push: { particles_nb: 4 },
+            remove: { particles_nb: 2 },
+          },
+        },
+        retina_detect: false,
+      });
+    </script>
+  </body>
+</html>

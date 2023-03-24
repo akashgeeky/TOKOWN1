@@ -1,0 +1,217 @@
+html {
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande",
+    sans-serif;
+  font-weight: 300;
+}
+body {
+  height: 100vh;
+  background-color: #000;
+  /* background-image: linear-gradient(to right, #000 10%, rgb(124, 102, 211) 100%); */
+  background-size: 400% 400%;
+
+  margin: 0px;
+
+  box-sizing: border-box;
+  /* animation: coloa 10s ease-in-out infinite; */
+}
+
+.container {
+  padding: 10px;
+  width: 350px;
+  /* display: inline-block; */
+  /* height: 300px; */
+  border-radius: 5px;
+  background-color: black;
+  display: block;
+  margin: 0px auto;
+  position: relative;
+  /* top: 50%;
+  left: 50%; */
+  overflow: hidden;
+  /* transform: translate(-50%, -50%); */
+  /* border-bottom: 1px solid #7a5cf6; */
+}
+.container h2 {
+  color: white;
+  text-align: center;
+  text-transform: uppercase;
+}
+.container form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.form-control {
+  position: relative;
+  width: 300px;
+  margin: 5px 0px;
+  padding: 0px;
+}
+.form-control input {
+  display: block;
+  /* width: auto; */
+  box-sizing: border-box;
+  color: rgb(196, 194, 194);
+  width: 100%;
+  background-color: #171717;
+  outline: none;
+  padding: 10px;
+  /* margin: 10px 0px; */
+  border-radius: 5px;
+  border: 2px solid #212121;
+}
+.password-wrapper {
+  position: relative;
+}
+.password-wrapper i {
+  position: absolute;
+  color: rgb(125, 125, 125);
+  top: 50%;
+  transform: translateY(-50%);
+  right: 15px;
+}
+.form-control label {
+  position: relative;
+  padding: 10px 0px;
+  display: block;
+  /* font-weight: 600; */
+  color: rgb(178, 178, 178);
+}
+.container input:focus {
+  border: 2px solid rgb(76, 76, 76);
+}
+.container input[type="submit"] {
+  display: block;
+  width: 300px;
+  border-radius: 5px;
+  border: none;
+  padding: 10px;
+  margin: 15px 0px;
+  background-color: #7a5cf6;
+  background-image: linear-gradient(to right, #5415c9, #7433ee);
+}
+.container form a {
+  position: relative;
+  color: white;
+  text-decoration: none;
+  padding: 10px;
+  overflow: hidden;
+  display: inline-block;
+  /* border: 1px solid #7a5cf6; */
+}
+.container form a span:nth-child(1) {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 2px;
+  width: 100%;
+  background-image: linear-gradient(to right, transparent, #7a5cf6);
+  animation: btn 1s linear infinite;
+}
+.container #bott {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  bottom: 0px;
+  left: 0px;
+  height: 2px;
+  background-image: linear-gradient(to right, transparent, #7a5cf6);
+  animation: btn 1s linear infinite;
+}
+@keyframes btn {
+  0% {
+    transform: translate(-100%);
+  }
+  100% {
+    transform: translate(100%);
+  }
+}
+.horizontal-break span {
+  display: flex;
+  flex-direction: row;
+  color: rgb(136, 136, 136);
+  font-size: 14px;
+}
+.horizontal-break span:before,
+.horizontal-break span:after {
+  content: "";
+  flex: 1 1;
+  border-bottom: 1px solid rgb(85, 85, 85);
+  margin: auto;
+}
+.horizontal-break span:before {
+  margin-right: 5px;
+}
+.horizontal-break span:after {
+  margin-left: 5px;
+}
+.container-login-signup {
+  margin: 17px 0px;
+  font-weight: 600;
+  text-align: center;
+  color: #7a5cf6;
+  font-size: 13px;
+}
+.container-login-signup a {
+  color: #7a5cf6;
+}
+.form-control .validation-container {
+  position: absolute;
+  width: 150px;
+  top: 50px;
+  right: -5px;
+  transform: translateX(100%);
+}
+.form-control small {
+  position: absolute;
+  left: 20px;
+  visibility: hidden;
+}
+.form-control i.fa-check-circle {
+  position: absolute;
+  left: 0px;
+  color: #513da1;
+  visibility: hidden;
+}
+.form-control i.fa-exclamation-circle {
+  position: absolute;
+  left: 0px;
+  color: #7d2d1b;
+  visibility: hidden;
+}
+.form-control.success i.fa-check-circle {
+  /* color: green; */
+  visibility: visible;
+}
+.form-control.success input {
+  border: 1px solid #7a5cf6;
+}
+.form-control.error input {
+  border: 1px solid rgb(102, 33, 33);
+}
+.form-control.error i.fa-exclamation-circle {
+  visibility: visible;
+}
+.form-control.error small {
+  visibility: visible;
+  color: #d3664e;
+}
+form .signup-options {
+  text-decoration: none;
+  color: black;
+  display: flex;
+  flex-direction: row;
+  width: 350px;
+  justify-content: space-between;
+  height: 35px;
+}
+form .signup-options a {
+  font-size: 18px;
+  padding: 10px;
+  margin: 0px;
+  color: rgb(100, 100, 100);
+  border-radius: 5px;
+}
+form .signup-options a.checked {
+  border: 1px solid #513da1;
+}
