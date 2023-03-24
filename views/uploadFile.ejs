@@ -127,8 +127,7 @@
         const objectelem = arresponse[elem.dataset.index];
         popup.querySelector("#name").children[1].innerHTML = objectelem?.originalname || "";
         popup.querySelector("#mimetype").children[1].innerHTML = objectelem?.mimetype || "";
-        // popup.querySelector("#hash").children[1].innerHTML = objectelem?.hash +"\n\n transaction id: " + document.querySelectorAll('.contain')[0].solana|| "";
-        popup.querySelector("#hash").children[1].innerHTML = objectelem?.hash +"\n\n transaction id: " + objectelem.solana|| "";
+        popup.querySelector("#hash").children[1].innerHTML = objectelem?.hash +"\n\n transaction id: " + document.querySelectorAll('.contain')[0].id|| "";
         console.log(arresponse[elem.dataset.index - 1]);
         if (popupcoor.top === elemd.top || popup.classList.contains("hidden")) {
           popup.classList.toggle("hidden");
