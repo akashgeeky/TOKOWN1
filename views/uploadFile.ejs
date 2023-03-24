@@ -19,7 +19,7 @@
   </head>
   <body>
     <%- include('./includes/nav.ejs') %>
-    <div class="contain" id=`<%=solana%>`>
+    <div class="contain">
       <h2>Upload File</h2>
 
       <form action="#" enctype="multipart/form-data">
@@ -56,18 +56,19 @@
       fileInput.click();
     });
     fileInput.onchange = ({ target }) => {
-      for(let i=0;i<target.files.length;i++)
-      {let file = target.files[i];
-      if (file) {
-        let fileName = file.name;
-        if (fileName.length >= 12) {
-          let splitName = fileName.split(".");
-          fileName = splitName[0].substring(0, 13) + "... ." + splitName[splitName.length - 1];
+      for (let i = 0; i < target.files.length; i++) {
+        let file = target.files[i];
+        if (file) {
+          let fileName = file.name;
+          if (fileName.length >= 12) {
+            let splitName = fileName.split(".");
+            fileName = splitName[0].substring(0, 13) + "... ." + splitName[splitName.length - 1];
+          }
+          uploadFile(fileName, i, file);
         }
-        uploadFile(fileName,i,file);
-      }}
+      }
     };
-    function uploadFile(name,i,file) {
+    function uploadFile(name, i, file) {
       let xhr = new XMLHttpRequest();
       xhr.open("POST", "/upload-file");
       xhr.addEventListener("load", () => {
@@ -113,7 +114,7 @@
       });
       let data = new FormData();
       console.log(file);
-      data.append('file',file);
+      data.append("file", file);
       xhr.send(data);
     }
     document.querySelectorAll(".uploaded-area")[0].addEventListener("click", (e) => {
@@ -127,7 +128,8 @@
         const objectelem = arresponse[elem.dataset.index];
         popup.querySelector("#name").children[1].innerHTML = objectelem?.originalname || "";
         popup.querySelector("#mimetype").children[1].innerHTML = objectelem?.mimetype || "";
-        popup.querySelector("#hash").children[1].innerHTML = objectelem?.hash +"\n\n transaction id: " + document.querySelectorAll('.contain')[0].id|| "";
+        popup.querySelector("#hash").children[1].innerHTML =
+          objectelem?.hash + "\n\n transaction id: " + document.querySelectorAll(".contain")[0].id || "";
         console.log(arresponse[elem.dataset.index - 1]);
         if (popupcoor.top === elemd.top || popup.classList.contains("hidden")) {
           popup.classList.toggle("hidden");
@@ -141,14 +143,14 @@
         popup.classList.toggle("hidden");
       });
     });
-    </script>
+  </script>
 
-    <script>
-      console.log(document.querySelectorAll('.contain')[0].id);
+  <script>
+    console.log(document.querySelectorAll(".contain")[0].id);
 
-      // <%if(solana){%>
-      //   let solanaa= <%(solana) %>;
-      //   console.log( solana);
-      //   <%}%>
-    </script>
+    // <%if(solana){%>
+    //   let solanaa= <%(solana) %>;
+    //   console.log( solana);
+    //   <%}%>
+  </script>
 </html>
